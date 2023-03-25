@@ -1,0 +1,100 @@
+@font-face {
+  font-family: "Kanit";
+  src: url(fonts/Kanit-Black.ttf);
+}
+
+:root {
+  font-family: "Kanit", sans-serif;
+  font-size: 24px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.left-container,
+.right-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  padding-top: 1rem;
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 1rem;
+  width: 20%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.project-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 90%;
+}
+
+.add-project {
+  font-family: inherit;
+  align-self: center;
+  margin-bottom: 2rem;
+  width: 50%;
+  font-size: 0.7rem;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 0.2rem;
+  box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.355);
+}
+
+.right-container {
+  width: 80%;
+  gap: 0.5rem;
+}
+
+.todo {
+  background-color: rgba(128, 128, 128, 0.2);
+  width: 40%;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.355);
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+.title {
+  font-size: 1.3rem;
+  padding-left: 0.2rem;
+}
+
+.duedate,
+.priority {
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
+}
+
+.project,
+.todo,
+.add-project {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.project:hover {
+  transform: scale(1.05) translate(5%, -5%);
+}
+
+.todo:hover,
+.add-project:hover {
+  transform: scale(1.05);
+}
