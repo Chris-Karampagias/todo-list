@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chris's ToDo List</title>
+    <title>Chris's Todo List</title>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="../src/style.css" />
   </head>
@@ -17,15 +17,49 @@
       </div>
       <button class="add-project">Add Project</button>
     </div>
+    <dialog open class="modal">
+      <form action="dialog" class="form">
+        <fieldset>
+          <legend>Todo Details</legend>
+          <div>
+            <label for="title-form">Title: </label>
+            <input type="text" id="title-form" name="title" required />
+          </div>
+          <div>
+            <label for="duedate-form">Due date: </label>
+            <input type="date" id="duedate-form" name="duedate" required />
+          </div>
+          <div>
+            <label for="priority-form">Priority: </label>
+            <select name="priority" id="priority-form" required>
+              <option value=""></option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <textarea
+            name="description"
+            id="description"
+            cols="35"
+            rows="5"
+            placeholder="Enter your todo's description here."
+          ></textarea>
+        </fieldset>
+        <div>
+          <button type="submit" class="submit-button">Submit</button>
+          <button class="close-button">Close</button>
+        </div>
+      </form>
+    </dialog>
     <div class="right-container">
       <div class="todo">
         <h1 class="title">todo1</h1>
-        <h2 class="duedate">Duedate: 12/5/2023</h2>
+        <h2 class="duedate">Due date: 12/5/2023</h2>
         <h2 class="priority">Priority: High</h2>
       </div>
       <div class="todo">
         <h1 class="title">todo2</h1>
-        <h2 class="duedate">Duedate: 25/5/2023</h2>
+        <h2 class="duedate">Due date: 25/5/2023</h2>
         <h2 class="priority">Priority: Low</h2>
       </div>
     </div>
