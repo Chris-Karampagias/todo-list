@@ -15,9 +15,12 @@
         <div class="project">Upcoming</div>
         <div class="project">Anytime</div>
       </div>
-      <button class="add-project">Add Project</button>
+      <div class="add-buttons-container">
+        <button class="add-todo">Add Todo</button>
+        <button class="add-project">Add Project</button>
+      </div>
     </div>
-    <dialog class="modal">
+    <dialog class="modal todo-modal">
       <form action="dialog" class="form">
         <fieldset>
           <legend>Todo Details</legend>
@@ -43,6 +46,7 @@
             cols="35"
             rows="5"
             placeholder="Enter your todo's description here."
+            maxlength="50"
           ></textarea>
         </fieldset>
         <div>
@@ -51,8 +55,23 @@
         </div>
       </form>
     </dialog>
+    <dialog class="modal project-modal">
+      <form action="dialog" class="form">
+        <fieldset>
+          <legend>Project Details</legend>
+          <div>
+            <label for="project-name">Name: </label>
+            <input type="text" id="project-name" name="project-name" required />
+          </div>
+        </fieldset>
+        <div>
+          <button type="submit" class="submit-button">Submit</button>
+          <button class="close-button">Close</button>
+        </div>
+      </form>
+    </dialog>
     <div class="right-container">
-      <div class="todo">
+      <!-- <div class="todo">
         <div class="todo-info">
           <h1 class="title">todo1</h1>
           <h2 class="duedate">Due date: 12/5/2023</h2>
@@ -70,8 +89,34 @@
           <h2 class="priority">Priority: High</h2>
         </div>
         <div class="todo-buttons">
-          <button class="todo-checked">✓</button>
+          <button>✓</button>
           <button class="todo-delete">✕</button>
+        </div>
+      </div> -->
+      <div class="todo-container-expanded">
+        <div class="top-container-expanded">
+          <h1 class="title-expanded">todo1</h1>
+        </div>
+        <div class="bottom-container-expanded">
+          <h2 class="duedate-expanded">
+            <span class="todo-detail">Due date:</span> 12/5/2023
+          </h2>
+          <h2 class="priority-expanded">
+            <span class="todo-detail">Priority:</span> High
+          </h2>
+          <h2 class="description">
+            <span class="todo-detail">Description:</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
+            quia reiciendis laboriosam, veritatis culpa quidem, suscipit ratione
+            dolorem alias dignissimos itaque voluptates, ad neque deleniti
+            quaerat impedit facere minus aperiam? Itaque, atque labore enim
+            nulla aut, natus architecto non, perferendis sit maiores fugiat
+            aliquam. Facilis quidem delectus nisi, consequuntur dolorem nostrum
+            natus ab adipisci! Adipisci odio veniam itaque. Qui, modi?
+          </h2>
+          <div class="todo-buttons-expanded">
+            <button class="edit-todo-details">Edit Todo</button>
+          </div>
         </div>
       </div>
     </div>
