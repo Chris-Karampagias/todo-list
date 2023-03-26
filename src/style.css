@@ -52,6 +52,7 @@ body {
   border-radius: 8px;
   padding: 0.2rem;
   box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.355);
+  outline: none;
 }
 
 .right-container {
@@ -64,8 +65,37 @@ body {
   width: 40%;
   border-radius: 8px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.355);
+}
+
+.todo-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0.2rem 0.2rem 0.2rem 0;
+  width: 30%;
+  gap: 0.2rem;
+}
+
+.todo-buttons button {
+  font-size: 70%;
+  font-family: inherit;
+  border-radius: 30px;
+  padding: 0.5rem 0;
+}
+
+.todo-checked {
+  color: white;
+  background-color: green;
+  border-color: rgba(0, 0, 0, 0);
+}
+
+.todo-delete {
+  color: white;
+  background-color: red;
+  border: none;
 }
 
 h1,
@@ -87,7 +117,8 @@ h2 {
 .project,
 .todo,
 .add-project,
-.form div:last-child button {
+.form div:last-child button,
+.todo-buttons button {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
@@ -98,7 +129,8 @@ h2 {
 
 .todo:hover,
 .add-project:hover,
-.form div:last-child button:hover {
+.form div:last-child button:hover,
+.todo-buttons button:hover {
   transform: scale(1.05);
 }
 
@@ -130,6 +162,10 @@ textarea:focus {
   top: 50%;
   bottom: 50%;
   border-radius: 8px;
+}
+
+.modal::backdrop {
+  backdrop-filter: blur(5px);
 }
 
 .form div {

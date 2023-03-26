@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("const checkTodo = document.querySelector(\".todo-buttons\").firstElementChild;\n\ncheckTodo.addEventListener(\"click\", () => {\n  checkTodo.classList.toggle(\"todo-checked\");\n});\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
 
 /***/ })
 
