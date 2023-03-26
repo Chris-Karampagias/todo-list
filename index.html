@@ -17,7 +17,7 @@
       </div>
       <button class="add-project">Add Project</button>
     </div>
-    <dialog open class="modal">
+    <dialog class="modal">
       <form action="dialog" class="form">
         <fieldset>
           <legend>Todo Details</legend>
@@ -53,14 +53,26 @@
     </dialog>
     <div class="right-container">
       <div class="todo">
-        <h1 class="title">todo1</h1>
-        <h2 class="duedate">Due date: 12/5/2023</h2>
-        <h2 class="priority">Priority: High</h2>
+        <div class="todo-info">
+          <h1 class="title">todo1</h1>
+          <h2 class="duedate">Due date: 12/5/2023</h2>
+          <h2 class="priority">Priority: High</h2>
+        </div>
+        <div class="todo-buttons">
+          <button>✓</button>
+          <button class="todo-delete">✕</button>
+        </div>
       </div>
       <div class="todo">
-        <h1 class="title">todo2</h1>
-        <h2 class="duedate">Due date: 25/5/2023</h2>
-        <h2 class="priority">Priority: Low</h2>
+        <div class="todo-info">
+          <h1 class="title">todo1</h1>
+          <h2 class="duedate">Due date: 12/5/2023</h2>
+          <h2 class="priority">Priority: High</h2>
+        </div>
+        <div class="todo-buttons">
+          <button class="todo-checked">✓</button>
+          <button class="todo-delete">✕</button>
+        </div>
       </div>
     </div>
   </body>
