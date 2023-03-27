@@ -42,6 +42,21 @@ body {
   height: 90%;
 }
 
+.project {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-project {
+  font-size: inherit;
+  border: none;
+  background-color: inherit;
+  color: red;
+  padding: 0;
+  margin: 0 1rem;
+}
+
 .add-buttons-container {
   display: flex;
   flex-direction: column;
@@ -134,7 +149,8 @@ h2 {
 .add-todo,
 .form div:last-child button,
 .todo-buttons button,
-.edit-todo-details {
+.edit-todo-details,
+.delete-project {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
@@ -148,7 +164,8 @@ h2 {
 .add-todo:hover,
 .form div:last-child button:hover,
 .todo-buttons button:hover,
-.edit-todo-details:hover {
+.edit-todo-details:hover,
+.delete-project:hover {
   transform: scale(1.05);
 }
 

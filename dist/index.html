@@ -11,7 +11,10 @@
   <body>
     <div class="left-container">
       <div class="project-container">
-        <div class="project">Today</div>
+        <div class="project">
+          <div class="project-title">Today</div>
+          <button class="delete-project">✕</button>
+        </div>
         <div class="project">Upcoming</div>
         <div class="project">Anytime</div>
       </div>
@@ -21,7 +24,7 @@
       </div>
     </div>
     <dialog class="modal todo-modal">
-      <form action="dialog" class="form">
+      <form method="dialog" class="form">
         <fieldset>
           <legend>Todo Details</legend>
           <div>
@@ -50,13 +53,13 @@
           ></textarea>
         </fieldset>
         <div>
-          <button type="submit" class="submit-button">Submit</button>
+          <button type="submit" class="submit-button-todo">Submit</button>
           <button class="close-button">Close</button>
         </div>
       </form>
     </dialog>
     <dialog class="modal project-modal">
-      <form action="dialog" class="form">
+      <form method="dialog" class="form">
         <fieldset>
           <legend>Project Details</legend>
           <div>
@@ -65,7 +68,7 @@
           </div>
         </fieldset>
         <div>
-          <button type="submit" class="submit-button">Submit</button>
+          <button type="submit" class="submit-button-project">Submit</button>
           <button class="close-button">Close</button>
         </div>
       </form>
