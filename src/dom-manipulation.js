@@ -15,4 +15,26 @@ function getProjectModalName() {
   return document.getElementById("project-name").value;
 }
 
-export { getTodoModalData, getProjectModalName };
+function displayLocalStorageProjects() {
+  const leftContainer = document.querySelector(".left-container");
+  const projectContainer = document.createElement("div");
+  projectContainer.classList.add("project-container");
+  for (const key of Object.keys(localStorage)) {
+    const project = document.createElement("div");
+    project.classList.add("project");
+    const projectTitle = document.createElement("div");
+    projectTitle.classList.add("project-title");
+    projectTitle.textContent = key;
+    project.append(projectTitle);
+    if (key != "Today" && key != "Anytime" && key != "Upcoming") {
+      const deleteProjectButton = document.createElement("button");
+      deleteProjectButton.classList.add("delete-project");
+      deleteProjectButton.textContent = "✕";
+      project.append(deleteProjectButton);
+    }
+    projectContainer.append(project);
+    leftContainer.prepend(projectContainer);
+  }
+}
+
+export { getTodoModalData, getProjectModalName, displayLocalStorageProjects };

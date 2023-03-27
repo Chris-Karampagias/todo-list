@@ -143,7 +143,7 @@ h2 {
   padding-left: 0.5rem;
 }
 
-.project,
+.project-title,
 .todo,
 .add-project,
 .add-todo,
@@ -155,7 +155,7 @@ h2 {
   cursor: pointer;
 }
 
-.project:hover {
+.project-title:hover {
   transform: scale(1.05) translate(5%, -5%);
 }
 

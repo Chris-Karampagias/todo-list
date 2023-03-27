@@ -1,6 +1,9 @@
 /* eslint-disable quotes */
 import { addProjectToStorage } from "./data-manipulation";
-import { getTodoModalData } from "./dom-manipulation";
+import {
+  getTodoModalData,
+  displayLocalStorageProjects,
+} from "./dom-manipulation";
 
 const projectModal = document.querySelector(".project-modal");
 const addProjectButton = document.querySelector(".add-project");
@@ -19,4 +22,4 @@ addTodoButton.addEventListener("click", () => {
 
 submitTodoButton.addEventListener("click", getTodoModalData); */
 
-console.table(localStorage);
+displayLocalStorageProjects();
