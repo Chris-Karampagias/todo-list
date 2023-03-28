@@ -1,5 +1,10 @@
+/* eslint-disable no-else-return */
 /* eslint-disable dot-notation */
-import { removeProjectFromStorage } from "./data-manipulation";
+import {
+  removeProjectFromStorage,
+  deselectPreviousProjectStorage,
+  selectProjectStorage,
+} from "./data-manipulation";
 
 function getTodoModalData() {
   const title = document.getElementById("title-form").value;
@@ -15,7 +20,11 @@ function getTodoModalData() {
 }
 
 function getProjectModalName() {
-  return document.getElementById("project-name").value;
+  if (document.getElementById("project-name").value != "") {
+    return document.getElementById("project-name").value;
+  } else {
+    return "Empty";
+  }
 }
 
 function displayLocalStorageProjects() {
@@ -43,6 +52,7 @@ function displayLocalStorageProjects() {
     projectContainer.append(project);
   }
   leftContainer.prepend(projectContainer);
+  selectProjectDOM();
 }
 
 function displayAddButtons() {
@@ -61,7 +71,7 @@ function displayAddButtons() {
 
 function findSelectedProjectName() {
   let name;
-  const projects = document.querySelectorAll(".project");
+  const projects = document.querySelectorAll(".project-name");
   projects.forEach((project) => {
     if (project.classList.contains("selected")) {
       name = project.firstElementChild.textContent;
@@ -70,7 +80,7 @@ function findSelectedProjectName() {
   return name;
 }
 
-function deselectPreviousProject() {
+function deselectPreviousProjectDOM() {
   const projects = document.querySelectorAll(".project-title");
   projects.forEach((project) => {
     if (project.classList.contains("selected")) {
@@ -79,8 +89,17 @@ function deselectPreviousProject() {
   });
 }
 
-function selectProject(e) {
-  e.target.classList.toggle("selected");
+function selectProjectDOM() {
+  const projects = [...document.querySelectorAll(".project-title")];
+  const array = JSON.parse(localStorage.getItem("array"));
+  for (let i = 0; i < projects.length; i++) {
+    if (
+      array[i].projectName == projects[i].textContent &&
+      array[i].selected == true
+    ) {
+      projects[i].classList.add("selected");
+    }
+  }
 }
 
 function removeProjectFromDOM(e) {
@@ -111,8 +130,10 @@ function refreshProjectListeners() {
   const projects = document.querySelectorAll(".project-title");
   projects.forEach((project) => {
     project.addEventListener("click", (e) => {
-      deselectPreviousProject();
-      selectProject(e);
+      deselectPreviousProjectStorage();
+      deselectPreviousProjectDOM();
+      selectProjectStorage(e);
+      selectProjectDOM();
     });
   });
   const projectsContainer = document.querySelector(".project-container");
@@ -127,6 +148,17 @@ function refreshProjectListeners() {
   }
 }
 
+function setTodayAsDefaultDOM() {
+  deselectPreviousProjectDOM();
+  const projects = [...document.querySelectorAll(".project-title")];
+  const array = JSON.parse(localStorage.getItem("array"));
+  for (let i = 0; i < projects.length; i++) {
+    if (array[i].projectName == "Today" && projects[i].textContent == "Today") {
+      projects[i].classList.add("selected");
+    }
+  }
+}
+
 export {
   getTodoModalData,
   getProjectModalName,
@@ -136,4 +168,5 @@ export {
   removeProjectFromDOM,
   checkForDeleteButton,
   refreshProjectListeners,
+  setTodayAsDefaultDOM,
 };

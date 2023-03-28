@@ -2,6 +2,7 @@
 import {
   addProjectToStorage,
   removeProjectFromStorage,
+  setTodayAsDefaultStorage,
 } from "./data-manipulation";
 import {
   getTodoModalData,
@@ -9,6 +10,7 @@ import {
   displayAddButtons,
   findSelectedProjectName,
   refreshProjectListeners,
+  setTodayAsDefaultDOM,
 } from "./dom-manipulation";
 
 displayLocalStorageProjects();
@@ -17,11 +19,18 @@ displayAddButtons();
 const projectModal = document.querySelector(".project-modal");
 const addProjectButton = document.querySelector(".add-project");
 const submitProjectButton = document.querySelector(".submit-button-project");
+const closeProjectModal = document.querySelector(".close-project-modal");
 addProjectButton.addEventListener("click", () => {
   projectModal.showModal();
 });
 
+closeProjectModal.addEventListener("click", () => {
+  projectModal.close();
+});
+
 window.addEventListener("load", () => {
+  setTodayAsDefaultStorage();
+  setTodayAsDefaultDOM();
   refreshProjectListeners();
 });
 
