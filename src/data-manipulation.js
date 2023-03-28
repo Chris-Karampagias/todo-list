@@ -1,10 +1,12 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable eqeqeq */
 import { getTodoModalData, getProjectModalName } from "./dom-manipulation";
 
 function addProjectToStorage() {
   const projectName = getProjectModalName();
   if (projectName == "Empty") return;
   const array = JSON.parse(localStorage.getItem("array"));
-  const obj = { projectName, selected: false };
+  const obj = { projectName, selected: false, todos: [] };
   array.push(obj);
   const stringified = JSON.stringify(array);
   localStorage.setItem("array", stringified);
@@ -47,21 +49,6 @@ function setTodayAsDefaultStorage() {
   localStorage.setItem("array", stringified);
 }
 
-/* class Todo {
-  constructor(title, duedate, priority, description) {
-    this.title = title;
-    this.duedate = duedate;
-    this.priority = priority;
-    this.description = description;
-  }
-}
-
-function createTodo() {
-  const { title, duedate, priority, description } = getTodoModalData();
-  const todoObj = new Todo(title, duedate, priority, description);
-  return todoObj;
-} */
-
 function removeProjectFromStorage(e) {
   const name = e.target.previousElementSibling.textContent;
   const array = JSON.parse(localStorage.getItem("array"));
@@ -74,11 +61,32 @@ function removeProjectFromStorage(e) {
   localStorage.setItem("array", stringified);
 }
 
-/* Need to get back to this one after I figure out how to get the currently selected project */
-/* function addTodoToStorage(){
-    const todo = createTodo(); 
+class Todo {
+  constructor(title, duedate, priority, description) {
+    this.title = title;
+    this.duedate = duedate;
+    this.priority = priority;
+    this.description = description;
+  }
+}
 
-} */
+function createTodo() {
+  const { title, duedate, priority, description } = getTodoModalData();
+  const todoObj = new Todo(title, duedate, priority, description);
+  return todoObj;
+}
+
+function addTodoStorage() {
+  const todo = createTodo();
+  const array = JSON.parse(localStorage.getItem("array"));
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].selected == true) {
+      array[i].todos.push(todo);
+    }
+  }
+  const stringified = JSON.stringify(array);
+  localStorage.setItem("array", stringified);
+}
 
 export {
   addProjectToStorage,
@@ -86,4 +94,5 @@ export {
   deselectPreviousProjectStorage,
   selectProjectStorage,
   setTodayAsDefaultStorage,
+  addTodoStorage,
 };

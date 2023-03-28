@@ -1,3 +1,6 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-plusplus */
+/* eslint-disable eqeqeq */
 /* eslint-disable no-else-return */
 /* eslint-disable dot-notation */
 import {
@@ -8,12 +11,12 @@ import {
 
 function getTodoModalData() {
   const title = document.getElementById("title-form").value;
-  const dueDate = document.getElementById("duedate-form").value;
+  const duedate = document.getElementById("duedate-form").value;
   const priority = document.getElementById("priority-form").value;
-  const description = document.getElementById("priority-form").value;
+  const description = document.getElementById("description").value;
   return {
     title,
-    dueDate,
+    duedate,
     priority,
     description,
   };
@@ -24,6 +27,28 @@ function getProjectModalName() {
     return document.getElementById("project-name").value;
   } else {
     return "Empty";
+  }
+}
+
+function removeAllChildNodes(parent) {
+  while (
+    parent.firstElementChild &&
+    !parent.firstElementChild.classList.contains("add-buttons-container")
+  ) {
+    parent.removeChild(parent.firstElementChild);
+  }
+}
+
+function selectProjectDOM() {
+  const projects = [...document.querySelectorAll(".project-title")];
+  const array = JSON.parse(localStorage.getItem("array"));
+  for (let i = 0; i < projects.length; i++) {
+    if (
+      array[i].projectName == projects[i].textContent &&
+      array[i].selected == true
+    ) {
+      projects[i].classList.add("selected");
+    }
   }
 }
 
@@ -89,31 +114,9 @@ function deselectPreviousProjectDOM() {
   });
 }
 
-function selectProjectDOM() {
-  const projects = [...document.querySelectorAll(".project-title")];
-  const array = JSON.parse(localStorage.getItem("array"));
-  for (let i = 0; i < projects.length; i++) {
-    if (
-      array[i].projectName == projects[i].textContent &&
-      array[i].selected == true
-    ) {
-      projects[i].classList.add("selected");
-    }
-  }
-}
-
 function removeProjectFromDOM(e) {
   const projectContainer = document.querySelector(".project-container");
   projectContainer.removeChild(e.target.parentElement);
-}
-
-function removeAllChildNodes(parent) {
-  while (
-    parent.firstElementChild &&
-    !parent.firstElementChild.classList.contains("add-buttons-container")
-  ) {
-    parent.removeChild(parent.firstElementChild);
-  }
 }
 
 function checkForDeleteButton(element) {

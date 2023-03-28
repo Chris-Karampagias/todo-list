@@ -1,6 +1,7 @@
 /* eslint-disable quotes */
 import {
   addProjectToStorage,
+  addTodoStorage,
   removeProjectFromStorage,
   setTodayAsDefaultStorage,
 } from "./data-manipulation";
@@ -40,11 +41,11 @@ submitProjectButton.addEventListener("click", () => {
   refreshProjectListeners();
 });
 
-/* const todoModal = document.querySelector(".todo-modal");
+const todoModal = document.querySelector(".todo-modal");
 const submitTodoButton = document.querySelector(".submit-button-todo");
 const addTodoButton = document.querySelector(".add-todo");
 addTodoButton.addEventListener("click", () => {
   todoModal.showModal();
 });
 
-submitTodoButton.addEventListener("click", getTodoModalData); */
+submitTodoButton.addEventListener("click", addTodoStorage);
