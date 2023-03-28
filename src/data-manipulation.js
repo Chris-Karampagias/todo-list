@@ -2,7 +2,11 @@ import { getTodoModalData, getProjectModalName } from "./dom-manipulation";
 
 function addProjectToStorage() {
   const projectName = getProjectModalName();
-  localStorage.setItem(projectName, "[]");
+  const array = JSON.parse(localStorage.getItem("array"));
+  const obj = { projectName };
+  array.push(obj);
+  const stringified = JSON.stringify(array);
+  localStorage.setItem("array", stringified);
 }
 
 class Todo {

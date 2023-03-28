@@ -3,7 +3,14 @@ import { addProjectToStorage } from "./data-manipulation";
 import {
   getTodoModalData,
   displayLocalStorageProjects,
+  displayAddButtons,
+  deselectProject,
+  findSelectedProjectName,
+  removeProjectFromDOM,
 } from "./dom-manipulation";
+
+displayLocalStorageProjects();
+displayAddButtons();
 
 const projectModal = document.querySelector(".project-modal");
 const addProjectButton = document.querySelector(".add-project");
@@ -12,7 +19,10 @@ addProjectButton.addEventListener("click", () => {
   projectModal.showModal();
 });
 
-submitProjectButton.addEventListener("click", addProjectToStorage);
+submitProjectButton.addEventListener("click", () => {
+  addProjectToStorage();
+  displayLocalStorageProjects();
+});
 /* const todoModal = document.querySelector(".todo-modal");
 const submitTodoButton = document.querySelector(".submit-button-todo");
 const addTodoButton = document.querySelector(".add-todo");
@@ -22,4 +32,6 @@ addTodoButton.addEventListener("click", () => {
 
 submitTodoButton.addEventListener("click", getTodoModalData); */
 
-displayLocalStorageProjects();
+/* const deleteProject = document.querySelector(".delete-project");
+
+deleteProject.addEventListener("click", removeProjectFromDOM) */
