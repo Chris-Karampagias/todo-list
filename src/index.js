@@ -7,9 +7,8 @@ import {
   getTodoModalData,
   displayLocalStorageProjects,
   displayAddButtons,
-  deselectProject,
   findSelectedProjectName,
-  removeProjectFromDOM,
+  refreshProjectListeners,
 } from "./dom-manipulation";
 
 displayLocalStorageProjects();
@@ -22,20 +21,16 @@ addProjectButton.addEventListener("click", () => {
   projectModal.showModal();
 });
 
+window.addEventListener("load", () => {
+  refreshProjectListeners();
+});
+
 submitProjectButton.addEventListener("click", () => {
   addProjectToStorage();
   displayLocalStorageProjects();
-  const projectContainer = document.querySelector(".project-container");
-  if (projectContainer.contains(document.querySelector(".delete-project"))) {
-    const deleteProjects = document.querySelectorAll(".delete-project");
-    deleteProjects.forEach((project) => {
-      project.addEventListener("click", (e) => {
-        removeProjectFromDOM(e);
-        removeProjectFromStorage(e);
-      });
-    });
-  }
+  refreshProjectListeners();
 });
+
 /* const todoModal = document.querySelector(".todo-modal");
 const submitTodoButton = document.querySelector(".submit-button-todo");
 const addTodoButton = document.querySelector(".add-todo");
@@ -44,10 +39,3 @@ addTodoButton.addEventListener("click", () => {
 });
 
 submitTodoButton.addEventListener("click", getTodoModalData); */
-
-/* const deleteProject = document.querySelector(".delete-project");
-
-deleteProject.addEventListener("click", (e) => {
-  removeProjectFromDOM(e);
-  removeProjectFromStorage(e);
-}); */

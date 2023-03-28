@@ -1,4 +1,6 @@
 /* eslint-disable dot-notation */
+import { removeProjectFromStorage } from "./data-manipulation";
+
 function getTodoModalData() {
   const title = document.getElementById("title-form").value;
   const dueDate = document.getElementById("duedate-form").value;
@@ -68,13 +70,17 @@ function findSelectedProjectName() {
   return name;
 }
 
-function deselectProject() {
-  const projects = document.querySelectorAll(".project");
+function deselectPreviousProject() {
+  const projects = document.querySelectorAll(".project-title");
   projects.forEach((project) => {
     if (project.classList.contains("selected")) {
       project.classList.remove("selected");
     }
   });
+}
+
+function selectProject(e) {
+  e.target.classList.toggle("selected");
 }
 
 function removeProjectFromDOM(e) {
@@ -91,12 +97,43 @@ function removeAllChildNodes(parent) {
   }
 }
 
+function checkForDeleteButton(element) {
+  if (
+    element.contains(document.querySelector(".delete-project")) ||
+    element.contains(document.querySelector(".todo-delete"))
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function refreshProjectListeners() {
+  const projects = document.querySelectorAll(".project-title");
+  projects.forEach((project) => {
+    project.addEventListener("click", (e) => {
+      deselectPreviousProject();
+      selectProject(e);
+    });
+  });
+  const projectsContainer = document.querySelector(".project-container");
+  if (checkForDeleteButton(projectsContainer)) {
+    const deleteProjects = document.querySelectorAll(".delete-project");
+    deleteProjects.forEach((project) => {
+      project.addEventListener("click", (e) => {
+        removeProjectFromDOM(e);
+        removeProjectFromStorage(e);
+      });
+    });
+  }
+}
+
 export {
   getTodoModalData,
   getProjectModalName,
   displayLocalStorageProjects,
   displayAddButtons,
-  deselectProject,
   findSelectedProjectName,
   removeProjectFromDOM,
+  checkForDeleteButton,
+  refreshProjectListeners,
 };
