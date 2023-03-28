@@ -1,5 +1,8 @@
 /* eslint-disable quotes */
-import { addProjectToStorage } from "./data-manipulation";
+import {
+  addProjectToStorage,
+  removeProjectFromStorage,
+} from "./data-manipulation";
 import {
   getTodoModalData,
   displayLocalStorageProjects,
@@ -22,6 +25,16 @@ addProjectButton.addEventListener("click", () => {
 submitProjectButton.addEventListener("click", () => {
   addProjectToStorage();
   displayLocalStorageProjects();
+  const projectContainer = document.querySelector(".project-container");
+  if (projectContainer.contains(document.querySelector(".delete-project"))) {
+    const deleteProjects = document.querySelectorAll(".delete-project");
+    deleteProjects.forEach((project) => {
+      project.addEventListener("click", (e) => {
+        removeProjectFromDOM(e);
+        removeProjectFromStorage(e);
+      });
+    });
+  }
 });
 /* const todoModal = document.querySelector(".todo-modal");
 const submitTodoButton = document.querySelector(".submit-button-todo");
@@ -34,4 +47,7 @@ submitTodoButton.addEventListener("click", getTodoModalData); */
 
 /* const deleteProject = document.querySelector(".delete-project");
 
-deleteProject.addEventListener("click", removeProjectFromDOM) */
+deleteProject.addEventListener("click", (e) => {
+  removeProjectFromDOM(e);
+  removeProjectFromStorage(e);
+}); */
