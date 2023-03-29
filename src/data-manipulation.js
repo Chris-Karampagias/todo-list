@@ -61,18 +61,13 @@ function removeProjectFromStorage(e) {
   localStorage.setItem("array", stringified);
 }
 
-class Todo {
-  constructor(title, duedate, priority, description) {
-    this.title = title;
-    this.duedate = duedate;
-    this.priority = priority;
-    this.description = description;
-  }
+function Todo(title, duedate, priority, description) {
+  return { title, duedate, priority, description };
 }
 
 function createTodo() {
   const { title, duedate, priority, description } = getTodoModalData();
-  const todoObj = new Todo(title, duedate, priority, description);
+  const todoObj = Todo(title, duedate, priority, description);
   return todoObj;
 }
 

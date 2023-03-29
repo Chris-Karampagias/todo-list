@@ -9,6 +9,7 @@ import {
   displayAddButtons,
   refreshProjectListeners,
   setTodayAsDefaultDOM,
+  displayTodos,
 } from "./dom-manipulation";
 
 displayLocalStorageProjects();
@@ -47,4 +48,9 @@ addTodoButton.addEventListener("click", () => {
   todoModal.showModal();
 });
 
-submitTodoButton.addEventListener("click", addTodoStorage);
+submitTodoButton.addEventListener("click", () => {
+  addTodoStorage();
+  displayTodos();
+});
+
+displayTodos();

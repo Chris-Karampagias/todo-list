@@ -108,6 +108,78 @@ function checkForProjectDeleteButton(element) {
   return false;
 }
 
+function setTodayAsDefaultDOM() {
+  deselectPreviousProjectDOM();
+  const projects = [...document.querySelectorAll(".project-title")];
+  const array = JSON.parse(localStorage.getItem("array"));
+  for (let i = 0; i < projects.length; i++) {
+    if (array[i].projectName == "Today" && projects[i].textContent == "Today") {
+      projects[i].classList.add("selected");
+    }
+  }
+}
+
+function createTodoContainer(title, duedate, priority) {
+  const todo = document.createElement("div");
+  todo.classList.add("todo");
+  const todoInfo = document.createElement("div");
+  todoInfo.classList.add("todo-info");
+  const todoTitle = document.createElement("div");
+  todoTitle.classList.add("title");
+  todoTitle.textContent = title;
+  const todoDuedate = document.createElement("div");
+  todoDuedate.classList.add("duedate");
+  const duedateColor = document.createElement("span");
+  duedateColor.classList.add("todo-detail");
+  duedateColor.textContent = "Due date: ";
+  const duedateSpan = document.createElement("span");
+  duedateSpan.textContent = duedate;
+  todoDuedate.append(duedateColor, duedateSpan);
+  const todoPriority = document.createElement("div");
+  todoPriority.classList.add("priority");
+  const priorityColor = document.createElement("span");
+  priorityColor.classList.add("todo-detail");
+  priorityColor.textContent = "Priority: ";
+  const prioritySpan = document.createElement("span");
+  prioritySpan.textContent = priority;
+  todoPriority.append(priorityColor, prioritySpan);
+  todoInfo.append(todoTitle, todoDuedate, todoPriority);
+  const todoButtons = document.createElement("div");
+  todoButtons.classList.add("todo-buttons");
+  const markComplete = document.createElement("button");
+  markComplete.textContent = "✓";
+  const deleteTodo = document.createElement("button");
+  deleteTodo.classList.add("todo-delete");
+  deleteTodo.textContent = "✕";
+  todoButtons.append(markComplete, deleteTodo);
+  todo.append(todoInfo, todoButtons);
+  return todo;
+}
+
+function displayTodos() {
+  const array = JSON.parse(localStorage.getItem("array"));
+  const rightContainer = document.querySelector(".right-container");
+  removeAllChildNodes(rightContainer);
+  rightContainer.classList.add("right-container");
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].selected == true && array[i].todos.length != 0) {
+      const todosList = array[i].todos;
+      for (let j = 0; j < todosList.length; j++) {
+        const [title, duedate, priority] = [
+          todosList[j].title,
+          todosList[j].duedate,
+          todosList[j].priority,
+        ];
+        const todo = createTodoContainer(title, duedate, priority);
+        rightContainer.append(todo);
+      }
+      break;
+    } else if (array[i].selected == true && array[i].todos.length == 0) {
+      break;
+    }
+  }
+}
+
 function refreshProjectListeners() {
   const projects = document.querySelectorAll(".project-title");
   projects.forEach((project) => {
@@ -116,6 +188,7 @@ function refreshProjectListeners() {
       deselectPreviousProjectDOM();
       selectProjectStorage(e);
       selectProjectDOM();
+      displayTodos();
     });
   });
   const projectsContainer = document.querySelector(".project-container");
@@ -130,17 +203,6 @@ function refreshProjectListeners() {
   }
 }
 
-function setTodayAsDefaultDOM() {
-  deselectPreviousProjectDOM();
-  const projects = [...document.querySelectorAll(".project-title")];
-  const array = JSON.parse(localStorage.getItem("array"));
-  for (let i = 0; i < projects.length; i++) {
-    if (array[i].projectName == "Today" && projects[i].textContent == "Today") {
-      projects[i].classList.add("selected");
-    }
-  }
-}
-
 export {
   displayLocalStorageProjects,
   displayAddButtons,
@@ -148,4 +210,5 @@ export {
   removeProjectFromDOM,
   refreshProjectListeners,
   setTodayAsDefaultDOM,
+  displayTodos,
 };
