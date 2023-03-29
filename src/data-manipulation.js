@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable eqeqeq */
-import { getTodoModalData, getProjectModalName } from "./dom-manipulation";
+import { getTodoModalData, getProjectModalName } from "./modal-data";
 
 function addProjectToStorage() {
   const projectName = getProjectModalName();

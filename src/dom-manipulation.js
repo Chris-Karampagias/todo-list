@@ -9,27 +9,6 @@ import {
   selectProjectStorage,
 } from "./data-manipulation";
 
-function getTodoModalData() {
-  const title = document.getElementById("title-form").value;
-  const duedate = document.getElementById("duedate-form").value;
-  const priority = document.getElementById("priority-form").value;
-  const description = document.getElementById("description").value;
-  return {
-    title,
-    duedate,
-    priority,
-    description,
-  };
-}
-
-function getProjectModalName() {
-  if (document.getElementById("project-name").value != "") {
-    return document.getElementById("project-name").value;
-  } else {
-    return "Empty";
-  }
-}
-
 function removeAllChildNodes(parent) {
   while (
     parent.firstElementChild &&
@@ -119,7 +98,7 @@ function removeProjectFromDOM(e) {
   projectContainer.removeChild(e.target.parentElement);
 }
 
-function checkForDeleteButton(element) {
+function checkForProjectDeleteButton(element) {
   if (
     element.contains(document.querySelector(".delete-project")) ||
     element.contains(document.querySelector(".todo-delete"))
@@ -140,7 +119,7 @@ function refreshProjectListeners() {
     });
   });
   const projectsContainer = document.querySelector(".project-container");
-  if (checkForDeleteButton(projectsContainer)) {
+  if (checkForProjectDeleteButton(projectsContainer)) {
     const deleteProjects = document.querySelectorAll(".delete-project");
     deleteProjects.forEach((project) => {
       project.addEventListener("click", (e) => {
@@ -163,13 +142,10 @@ function setTodayAsDefaultDOM() {
 }
 
 export {
-  getTodoModalData,
-  getProjectModalName,
   displayLocalStorageProjects,
   displayAddButtons,
   findSelectedProjectName,
   removeProjectFromDOM,
-  checkForDeleteButton,
   refreshProjectListeners,
   setTodayAsDefaultDOM,
 };
