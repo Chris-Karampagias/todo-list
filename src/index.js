@@ -14,6 +14,7 @@ import {
 
 displayLocalStorageProjects();
 displayAddButtons();
+displayTodos();
 
 const projectModal = document.querySelector(".project-modal");
 const addProjectButton = document.querySelector(".add-project");
@@ -52,5 +53,3 @@ submitTodoButton.addEventListener("click", () => {
   addTodoStorage();
   displayTodos();
 });
-
-displayTodos();

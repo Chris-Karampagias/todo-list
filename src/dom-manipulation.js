@@ -93,9 +93,17 @@ function deselectPreviousProjectDOM() {
   });
 }
 
+function removeTodosFromDOM() {
+  const rightContainer = document.querySelector(".right-container");
+  removeAllChildNodes(rightContainer);
+}
+
 function removeProjectFromDOM(e) {
   const projectContainer = document.querySelector(".project-container");
   projectContainer.removeChild(e.target.parentElement);
+  if (e.target.previousElementSibling.classList.contains("selected")) {
+    removeTodosFromDOM();
+  }
 }
 
 function checkForProjectDeleteButton(element) {
@@ -147,6 +155,7 @@ function createTodoContainer(title, duedate, priority) {
   const todoButtons = document.createElement("div");
   todoButtons.classList.add("todo-buttons");
   const markComplete = document.createElement("button");
+  markComplete.classList.add("mark-complete");
   markComplete.textContent = "✓";
   const deleteTodo = document.createElement("button");
   deleteTodo.classList.add("todo-delete");
