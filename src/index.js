@@ -11,12 +11,15 @@ import {
   refreshTodoListeners,
   setTodayAsDefaultDOM,
   displayTodos,
-  expandTodo,
 } from "./dom-manipulation";
 
+setTodayAsDefaultStorage();
 displayLocalStorageProjects();
 displayAddButtons();
+setTodayAsDefaultDOM();
 displayTodos();
+refreshProjectListeners();
+refreshTodoListeners();
 
 const projectModal = document.querySelector(".project-modal");
 const addProjectButton = document.querySelector(".add-project");
@@ -29,13 +32,6 @@ addProjectButton.addEventListener("click", () => {
 
 closeProjectModal.addEventListener("click", () => {
   projectModal.close();
-});
-
-window.addEventListener("load", () => {
-  setTodayAsDefaultStorage();
-  setTodayAsDefaultDOM();
-  refreshProjectListeners();
-  refreshTodoListeners();
 });
 
 submitProjectButton.addEventListener("click", () => {
@@ -57,9 +53,4 @@ submitTodoButton.addEventListener("click", () => {
   displayTodos();
   refreshProjectListeners();
   refreshTodoListeners();
-});
-
-const expandButtons = document.querySelectorAll(".expand");
-expandButtons.forEach((button) => {
-  button.addEventListener("click", expandTodo);
 });

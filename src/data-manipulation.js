@@ -88,7 +88,7 @@ function deleteTodoStorage(e) {
   while (!element.classList.contains("todo-info")) {
     element = element.previousElementSibling;
   }
-  const name = element.firstElementChild.textContent;
+  const name = element.firstElementChild.firstElementChild.textContent;
   const array = JSON.parse(localStorage.getItem("array"));
   for (let i = 0; i < array.length; i++) {
     if (array[i].selected == true) {

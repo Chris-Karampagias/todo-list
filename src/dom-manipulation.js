@@ -195,47 +195,6 @@ function displayTodos() {
   }
 }
 
-function refreshTodoListeners() {
-  const deleteTodoButtons = document.querySelectorAll(".todo-delete");
-  deleteTodoButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      deleteTodoStorage(e);
-      displayTodos();
-    });
-  });
-}
-
-function refreshProjectListeners() {
-  const projects = document.querySelectorAll(".project-title");
-  projects.forEach((project) => {
-    project.addEventListener("click", (e) => {
-      deselectPreviousProjectStorage();
-      deselectPreviousProjectDOM();
-      selectProjectStorage(e);
-      selectProjectDOM();
-      displayTodos();
-      refreshTodoListeners();
-    });
-  });
-  const projectsContainer = document.querySelector(".project-container");
-  if (checkForProjectDeleteButton(projectsContainer)) {
-    const deleteProjects = document.querySelectorAll(".delete-project");
-    deleteProjects.forEach((project) => {
-      project.addEventListener("click", (e) => {
-        removeProjectFromStorage(e);
-        displayLocalStorageProjects();
-        if (e.target.previousElementSibling.classList.contains("selected")) {
-          setTodayAsDefaultStorage();
-          setTodayAsDefaultDOM();
-          displayTodos();
-          refreshProjectListeners();
-          refreshTodoListeners();
-        }
-      });
-    });
-  }
-}
-
 function createExpandedTodoContainer(title, duedate, priority, description) {
   const todoContainer = document.createElement("div");
   todoContainer.classList.add("todo-container-expanded");
@@ -313,6 +272,52 @@ function expandTodo(e) {
         }
       }
     }
+  }
+}
+
+function refreshTodoListeners() {
+  const deleteTodoButtons = document.querySelectorAll(".todo-delete");
+  deleteTodoButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      deleteTodoStorage(e);
+      displayTodos();
+      refreshTodoListeners();
+    });
+  });
+  const expandButtons = document.querySelectorAll(".expand");
+  expandButtons.forEach((button) => {
+    button.addEventListener("click", expandTodo);
+  });
+}
+
+function refreshProjectListeners() {
+  const projects = document.querySelectorAll(".project-title");
+  projects.forEach((project) => {
+    project.addEventListener("click", (e) => {
+      deselectPreviousProjectStorage();
+      deselectPreviousProjectDOM();
+      selectProjectStorage(e);
+      selectProjectDOM();
+      displayTodos();
+      refreshTodoListeners();
+    });
+  });
+  const projectsContainer = document.querySelector(".project-container");
+  if (checkForProjectDeleteButton(projectsContainer)) {
+    const deleteProjects = document.querySelectorAll(".delete-project");
+    deleteProjects.forEach((project) => {
+      project.addEventListener("click", (e) => {
+        removeProjectFromStorage(e);
+        displayLocalStorageProjects();
+        if (e.target.previousElementSibling.classList.contains("selected")) {
+          setTodayAsDefaultStorage();
+          setTodayAsDefaultDOM();
+          displayTodos();
+          refreshProjectListeners();
+          refreshTodoListeners();
+        }
+      });
+    });
   }
 }
 
