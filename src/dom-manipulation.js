@@ -9,7 +9,7 @@ import {
   selectProjectStorage,
   deleteTodoStorage,
   setTodayAsDefaultStorage,
-  markTodoAsCompletedStorage,
+  changeTodoStatusStorage,
 } from "./data-manipulation";
 
 function removeAllChildNodes(parent) {
@@ -130,7 +130,7 @@ function setTodayAsDefaultDOM() {
   }
 }
 
-function createTodoContainer(title, duedate, priority) {
+function createTodoContainer(title, duedate, priority, completed) {
   const todo = document.createElement("div");
   todo.classList.add("todo");
   const todoInfo = document.createElement("div");
@@ -165,6 +165,9 @@ function createTodoContainer(title, duedate, priority) {
   const markComplete = document.createElement("button");
   markComplete.classList.add("mark-complete");
   markComplete.textContent = "✓";
+  if (completed == true) {
+    markComplete.classList.add("todo-completed");
+  }
   const deleteTodo = document.createElement("button");
   deleteTodo.classList.add("todo-delete");
   deleteTodo.textContent = "✕";
@@ -181,12 +184,18 @@ function displayTodos() {
     if (array[i].selected == true && array[i].todos.length != 0) {
       const todosList = array[i].todos;
       for (let j = 0; j < todosList.length; j++) {
-        const [todoTitle, todoDuedate, todoPriority] = [
+        const [todoTitle, todoDuedate, todoPriority, todoCompleted] = [
           todosList[j].title,
           todosList[j].duedate,
           todosList[j].priority,
+          todosList[j].completed,
         ];
-        const todo = createTodoContainer(todoTitle, todoDuedate, todoPriority);
+        const todo = createTodoContainer(
+          todoTitle,
+          todoDuedate,
+          todoPriority,
+          todoCompleted
+        );
         rightContainer.append(todo);
       }
       break;
@@ -291,7 +300,11 @@ function refreshTodoListeners() {
   });
   const markCompleteButtons = document.querySelectorAll(".mark-complete");
   markCompleteButtons.forEach((button) => {
-    button.addEventListener("click", markTodoAsCompletedStorage);
+    button.addEventListener("click", (e) => {
+      changeTodoStatusStorage(e);
+      displayTodos();
+      refreshTodoListeners();
+    });
   });
 }
 

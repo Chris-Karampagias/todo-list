@@ -104,7 +104,7 @@ function deleteTodoStorage(e) {
   localStorage.setItem("array", stringified);
 }
 
-function markTodoAsCompletedStorage(e) {
+function changeTodoStatusStorage(e) {
   let element = e.target.parentElement;
   while (!element.classList.contains("todo-info")) {
     element = element.previousElementSibling;
@@ -118,6 +118,11 @@ function markTodoAsCompletedStorage(e) {
         if (todosList[j].title == name && todosList[j].completed == false) {
           todosList[j].completed = true;
           break;
+        } else if (
+          todosList[j].title == name &&
+          todosList[j].completed == true
+        ) {
+          todosList[j].completed = false;
         }
       }
       break;
@@ -135,5 +140,5 @@ export {
   setTodayAsDefaultStorage,
   addTodoStorage,
   deleteTodoStorage,
-  markTodoAsCompletedStorage,
+  changeTodoStatusStorage,
 };
