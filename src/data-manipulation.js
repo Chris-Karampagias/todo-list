@@ -83,6 +83,27 @@ function addTodoStorage() {
   localStorage.setItem("array", stringified);
 }
 
+function deleteTodoStorage(e) {
+  let element = e.target.parentElement;
+  while (!element.classList.contains("todo-info")) {
+    element = element.previousElementSibling;
+  }
+  const name = element.firstElementChild.textContent;
+  const array = JSON.parse(localStorage.getItem("array"));
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].selected == true) {
+      const todosList = array[i].todos;
+      for (let j = 0; j < todosList.length; j++) {
+        if (todosList[j].title == name) {
+          todosList.splice(j, 1);
+        }
+      }
+    }
+  }
+  const stringified = JSON.stringify(array);
+  localStorage.setItem("array", stringified);
+}
+
 export {
   addProjectToStorage,
   removeProjectFromStorage,
@@ -90,4 +111,5 @@ export {
   selectProjectStorage,
   setTodayAsDefaultStorage,
   addTodoStorage,
+  deleteTodoStorage,
 };

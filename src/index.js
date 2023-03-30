@@ -8,6 +8,7 @@ import {
   displayLocalStorageProjects,
   displayAddButtons,
   refreshProjectListeners,
+  refreshTodoListeners,
   setTodayAsDefaultDOM,
   displayTodos,
 } from "./dom-manipulation";
@@ -33,6 +34,7 @@ window.addEventListener("load", () => {
   setTodayAsDefaultStorage();
   setTodayAsDefaultDOM();
   refreshProjectListeners();
+  refreshTodoListeners();
 });
 
 submitProjectButton.addEventListener("click", () => {
@@ -52,4 +54,6 @@ addTodoButton.addEventListener("click", () => {
 submitTodoButton.addEventListener("click", () => {
   addTodoStorage();
   displayTodos();
+  refreshProjectListeners();
+  refreshTodoListeners();
 });

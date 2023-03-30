@@ -7,6 +7,8 @@ import {
   removeProjectFromStorage,
   deselectPreviousProjectStorage,
   selectProjectStorage,
+  deleteTodoStorage,
+  setTodayAsDefaultStorage,
 } from "./data-manipulation";
 
 function removeAllChildNodes(parent) {
@@ -61,7 +63,7 @@ function displayLocalStorageProjects() {
 
 function displayAddButtons() {
   const leftContainer = document.querySelector(".left-container");
-  const addButtonsContainer = document.createElement("add-buttons-container");
+  const addButtonsContainer = document.createElement("div");
   addButtonsContainer.classList.add("add-buttons-container");
   const addTodo = document.createElement("button");
   addTodo.classList.add("add-todo");
@@ -121,7 +123,7 @@ function setTodayAsDefaultDOM() {
   const projects = [...document.querySelectorAll(".project-title")];
   const array = JSON.parse(localStorage.getItem("array"));
   for (let i = 0; i < projects.length; i++) {
-    if (array[i].projectName == "Today" && projects[i].textContent == "Today") {
+    if (array[i].selected == true) {
       projects[i].classList.add("selected");
     }
   }
@@ -189,6 +191,16 @@ function displayTodos() {
   }
 }
 
+function refreshTodoListeners() {
+  const deleteTodoButtons = document.querySelectorAll(".todo-delete");
+  deleteTodoButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      deleteTodoStorage(e);
+      displayTodos();
+    });
+  });
+}
+
 function refreshProjectListeners() {
   const projects = document.querySelectorAll(".project-title");
   projects.forEach((project) => {
@@ -198,6 +210,7 @@ function refreshProjectListeners() {
       selectProjectStorage(e);
       selectProjectDOM();
       displayTodos();
+      refreshTodoListeners();
     });
   });
   const projectsContainer = document.querySelector(".project-container");
@@ -205,8 +218,15 @@ function refreshProjectListeners() {
     const deleteProjects = document.querySelectorAll(".delete-project");
     deleteProjects.forEach((project) => {
       project.addEventListener("click", (e) => {
-        removeProjectFromDOM(e);
         removeProjectFromStorage(e);
+        displayLocalStorageProjects();
+        if (e.target.previousElementSibling.classList.contains("selected")) {
+          setTodayAsDefaultStorage();
+          setTodayAsDefaultDOM();
+          displayTodos();
+          refreshProjectListeners();
+          refreshTodoListeners();
+        }
       });
     });
   }
@@ -218,6 +238,7 @@ export {
   findSelectedProjectName,
   removeProjectFromDOM,
   refreshProjectListeners,
+  refreshTodoListeners,
   setTodayAsDefaultDOM,
   displayTodos,
 };
