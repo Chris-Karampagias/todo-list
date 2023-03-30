@@ -62,7 +62,7 @@ function removeProjectFromStorage(e) {
 }
 
 function Todo(title, duedate, priority, description) {
-  return { title, duedate, priority, description };
+  return { title, duedate, priority, description, completed: false };
 }
 
 function createTodo() {
@@ -104,6 +104,29 @@ function deleteTodoStorage(e) {
   localStorage.setItem("array", stringified);
 }
 
+function markTodoAsCompletedStorage(e) {
+  let element = e.target.parentElement;
+  while (!element.classList.contains("todo-info")) {
+    element = element.previousElementSibling;
+  }
+  const name = element.firstElementChild.firstElementChild.textContent;
+  const array = JSON.parse(localStorage.getItem("array"));
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].selected == true) {
+      const todosList = array[i].todos;
+      for (let j = 0; j < todosList.length; j++) {
+        if (todosList[j].title == name && todosList[j].completed == false) {
+          todosList[j].completed = true;
+          break;
+        }
+      }
+      break;
+    }
+  }
+  const stringified = JSON.stringify(array);
+  localStorage.setItem("array", stringified);
+}
+
 export {
   addProjectToStorage,
   removeProjectFromStorage,
@@ -112,4 +135,5 @@ export {
   setTodayAsDefaultStorage,
   addTodoStorage,
   deleteTodoStorage,
+  markTodoAsCompletedStorage,
 };

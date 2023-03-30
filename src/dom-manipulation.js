@@ -9,6 +9,7 @@ import {
   selectProjectStorage,
   deleteTodoStorage,
   setTodayAsDefaultStorage,
+  markTodoAsCompletedStorage,
 } from "./data-manipulation";
 
 function removeAllChildNodes(parent) {
@@ -287,6 +288,10 @@ function refreshTodoListeners() {
   const expandButtons = document.querySelectorAll(".expand");
   expandButtons.forEach((button) => {
     button.addEventListener("click", expandTodo);
+  });
+  const markCompleteButtons = document.querySelectorAll(".mark-complete");
+  markCompleteButtons.forEach((button) => {
+    button.addEventListener("click", markTodoAsCompletedStorage);
   });
 }
 
