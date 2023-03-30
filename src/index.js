@@ -11,6 +11,7 @@ import {
   refreshTodoListeners,
   setTodayAsDefaultDOM,
   displayTodos,
+  expandTodo,
 } from "./dom-manipulation";
 
 displayLocalStorageProjects();
@@ -56,4 +57,9 @@ submitTodoButton.addEventListener("click", () => {
   displayTodos();
   refreshProjectListeners();
   refreshTodoListeners();
+});
+
+const expandButtons = document.querySelectorAll(".expand");
+expandButtons.forEach((button) => {
+  button.addEventListener("click", expandTodo);
 });

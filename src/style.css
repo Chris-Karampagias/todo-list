@@ -140,6 +140,15 @@ h2 {
 .title {
   font-size: 1.3rem;
   padding-left: 0.2rem;
+  display: flex;
+  gap: 0.3rem;
+}
+
+.expand {
+  background-color: inherit;
+  font-size: 80%;
+  border: none;
+  outline: none;
 }
 
 .duedate,
@@ -247,6 +256,10 @@ fieldset {
 
 .top-container-expanded {
   border-bottom: 2px solid black;
+}
+
+.title-expanded {
+  font-size: 2rem;
 }
 
 .bottom-container-expanded * {

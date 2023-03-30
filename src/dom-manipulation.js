@@ -134,9 +134,14 @@ function createTodoContainer(title, duedate, priority) {
   todo.classList.add("todo");
   const todoInfo = document.createElement("div");
   todoInfo.classList.add("todo-info");
+  const todoTitleContainer = document.createElement("div");
+  todoTitleContainer.classList.add("title");
   const todoTitle = document.createElement("div");
-  todoTitle.classList.add("title");
   todoTitle.textContent = title;
+  const expandButton = document.createElement("button");
+  expandButton.classList.add("expand");
+  expandButton.textContent = "▼";
+  todoTitleContainer.append(todoTitle, expandButton);
   const todoDuedate = document.createElement("div");
   todoDuedate.classList.add("duedate");
   const duedateColor = document.createElement("span");
@@ -153,7 +158,7 @@ function createTodoContainer(title, duedate, priority) {
   const prioritySpan = document.createElement("span");
   prioritySpan.textContent = priority;
   todoPriority.append(priorityColor, prioritySpan);
-  todoInfo.append(todoTitle, todoDuedate, todoPriority);
+  todoInfo.append(todoTitleContainer, todoDuedate, todoPriority);
   const todoButtons = document.createElement("div");
   todoButtons.classList.add("todo-buttons");
   const markComplete = document.createElement("button");
@@ -171,17 +176,16 @@ function displayTodos() {
   const array = JSON.parse(localStorage.getItem("array"));
   const rightContainer = document.querySelector(".right-container");
   removeAllChildNodes(rightContainer);
-  rightContainer.classList.add("right-container");
   for (let i = 0; i < array.length; i++) {
     if (array[i].selected == true && array[i].todos.length != 0) {
       const todosList = array[i].todos;
       for (let j = 0; j < todosList.length; j++) {
-        const [title, duedate, priority] = [
+        const [todoTitle, todoDuedate, todoPriority] = [
           todosList[j].title,
           todosList[j].duedate,
           todosList[j].priority,
         ];
-        const todo = createTodoContainer(title, duedate, priority);
+        const todo = createTodoContainer(todoTitle, todoDuedate, todoPriority);
         rightContainer.append(todo);
       }
       break;
@@ -232,6 +236,86 @@ function refreshProjectListeners() {
   }
 }
 
+function createExpandedTodoContainer(title, duedate, priority, description) {
+  const todoContainer = document.createElement("div");
+  todoContainer.classList.add("todo-container-expanded");
+  const topContainer = document.createElement("div");
+  topContainer.classList.add("top-container-expanded");
+  const todoTitle = document.createElement("div");
+  todoTitle.classList.add("title-expanded");
+  todoTitle.textContent = title;
+  topContainer.append(todoTitle);
+  const bottomContainer = document.createElement("div");
+  bottomContainer.classList.add("bottom-container-expanded");
+  const duedateContainer = document.createElement("div");
+  duedateContainer.classList.add("duedate-expanded");
+  const duedateColor = document.createElement("span");
+  duedateColor.classList.add("todo-detail");
+  duedateColor.textContent = "Due date: ";
+  const duedateSpan = document.createElement("span");
+  duedateSpan.textContent = duedate;
+  duedateContainer.append(duedateColor, duedateSpan);
+  const priorityContainer = document.createElement("div");
+  priorityContainer.classList.add("priority-expanded");
+  const priorityColor = document.createElement("span");
+  priorityColor.classList.add("todo-detail");
+  priorityColor.textContent = "Priority: ";
+  const prioritySpan = document.createElement("span");
+  prioritySpan.textContent = priority;
+  priorityContainer.append(priorityColor, prioritySpan);
+  const descriptionContainer = document.createElement("div");
+  descriptionContainer.classList.add("description");
+  const descriptionColor = document.createElement("span");
+  descriptionColor.classList.add("todo-detail");
+  descriptionColor.textContent = "Description: ";
+  const descriptionSpan = document.createElement("span");
+  descriptionSpan.textContent = description;
+  descriptionContainer.append(descriptionColor, descriptionSpan);
+  const editTodoContainer = document.createElement("div");
+  editTodoContainer.classList.add("todo-buttons-expanded");
+  const editTodo = document.createElement("button");
+  editTodo.classList.add("edit-todo-details");
+  editTodo.textContent = "Edit Todo";
+  editTodoContainer.append(editTodo);
+  bottomContainer.append(
+    duedateContainer,
+    priorityContainer,
+    descriptionContainer,
+    editTodoContainer
+  );
+  todoContainer.append(topContainer, bottomContainer);
+  return todoContainer;
+}
+
+function expandTodo(e) {
+  const array = JSON.parse(localStorage.getItem("array"));
+  const rightContainer = document.querySelector(".right-container");
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].selected == true && array[i].todos.length != 0) {
+      const todosList = array[i].todos;
+      for (let j = 0; j < todosList.length; j++) {
+        if (todosList[j].title == e.target.previousElementSibling.textContent) {
+          const [todoTitle, todoDuedate, todoPriority, todoDescription] = [
+            todosList[j].title,
+            todosList[j].duedate,
+            todosList[j].priority,
+            todosList[j].description,
+          ];
+          const expandedTodo = createExpandedTodoContainer(
+            todoTitle,
+            todoDuedate,
+            todoPriority,
+            todoDescription
+          );
+          removeAllChildNodes(rightContainer);
+          rightContainer.append(expandedTodo);
+          break;
+        }
+      }
+    }
+  }
+}
+
 export {
   displayLocalStorageProjects,
   displayAddButtons,
@@ -241,4 +325,5 @@ export {
   refreshTodoListeners,
   setTodayAsDefaultDOM,
   displayTodos,
+  expandTodo,
 };
