@@ -61,6 +61,45 @@
         </div>
       </form>
     </dialog>
+    <dialog class="modal todo-modal-edit">
+      <form method="dialog" class="form">
+        <fieldset>
+          <legend>Todo Details</legend>
+          <div>
+            <label for="duedate-form-edited">Due date: </label>
+            <input
+              type="date"
+              id="duedate-form-edited"
+              name="duedate"
+              required
+            />
+          </div>
+          <div>
+            <label for="priority-form-edited">Priority: </label>
+            <select name="priority" id="priority-form-edited" required>
+              <option value=""></option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <textarea
+            name="description"
+            id="description-edited"
+            cols="35"
+            rows="5"
+            placeholder="Enter your todo's description here."
+            maxlength="50"
+            required
+          ></textarea>
+        </fieldset>
+        <div>
+          <button type="submit" class="update-button-todo">Submit</button>
+          <button type="button" class="close-button close-todo-modal-edit">
+            Close
+          </button>
+        </div>
+      </form>
+    </dialog>
     <dialog class="modal project-modal">
       <form method="dialog" class="form">
         <fieldset>
