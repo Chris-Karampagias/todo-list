@@ -1,6 +1,10 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable eqeqeq */
-import { getTodoModalData, getProjectModalName } from "./modal-data";
+import {
+  getTodoModalData,
+  getProjectModalName,
+  getEditedTodoModalData,
+} from "./modal-data";
 
 function addProjectToStorage() {
   const projectName = getProjectModalName();
@@ -132,6 +136,48 @@ function changeTodoStatusStorage(e) {
   localStorage.setItem("array", stringified);
 }
 
+function getTodoInfo(name) {
+  const array = JSON.parse(localStorage.getItem("array"));
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].selected == true && array[i].todos.length != 0) {
+      const todosList = array[i].todos;
+      for (let j = 0; j < todosList.length; j++) {
+        if (todosList[j].title == name) {
+          const [todoDuedate, todoPriority, todoDescription, todoCompleted] = [
+            todosList[j].duedate,
+            todosList[j].priority,
+            todosList[j].description,
+            todosList[j].completed,
+          ];
+          return [todoDuedate, todoPriority, todoDescription, todoCompleted];
+        }
+      }
+    }
+  }
+}
+
+function updateTodoStorage() {
+  const title = document.querySelector(".title-expanded").textContent;
+  const { duedate, priority, description } = getEditedTodoModalData();
+  const array = JSON.parse(localStorage.getItem("array"));
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].selected == true && array[i].todos.length != 0) {
+      const todosList = array[i].todos;
+      for (let j = 0; j < todosList.length; j++) {
+        if (todosList[j].title == title) {
+          todosList[j].duedate = duedate;
+          todosList[j].priority = priority;
+          todosList[j].description = description;
+          break;
+        }
+      }
+      break;
+    }
+  }
+  const stringified = JSON.stringify(array);
+  localStorage.setItem("array", stringified);
+}
+
 export {
   addProjectToStorage,
   removeProjectFromStorage,
@@ -141,4 +187,6 @@ export {
   addTodoStorage,
   deleteTodoStorage,
   changeTodoStatusStorage,
+  getTodoInfo,
+  updateTodoStorage,
 };

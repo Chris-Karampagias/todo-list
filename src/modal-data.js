@@ -12,6 +12,17 @@ function getTodoModalData() {
   };
 }
 
+function getEditedTodoModalData() {
+  const duedate = document.getElementById("duedate-form-edited").value;
+  const priority = document.getElementById("priority-form-edited").value;
+  const description = document.getElementById("description-edited").value;
+  return {
+    duedate,
+    priority,
+    description,
+  };
+}
+
 function getProjectModalName() {
   if (document.getElementById("project-name").value != "") {
     return document.getElementById("project-name").value;
@@ -19,4 +30,4 @@ function getProjectModalName() {
   return "Empty";
 }
 
-export { getProjectModalName, getTodoModalData };
+export { getProjectModalName, getTodoModalData, getEditedTodoModalData };
