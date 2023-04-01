@@ -23,4 +23,4 @@ Each todo is an object that is stored inside the todos array and has the followi
 - a 'duedate' property
 - a 'priority' property
 - a 'description' property
-- a 'completed' with a value of true or false based on whether the user marked it as completed or not
+- a 'completed' property with a value of true or false based on whether the user marked it as completed or not
