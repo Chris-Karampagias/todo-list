@@ -14,7 +14,7 @@ import {
   updateTodoStorage,
 } from "./data-manipulation";
 
-import { getTodoModalData, getEditedTodoModalData } from "./modal-data";
+import { getEditedTodoModalData, reverseDate } from "./modal-data";
 
 function removeAllChildNodes(parent) {
   while (
@@ -290,12 +290,12 @@ function expandTodo(e) {
 }
 
 function expandTodoAfterEdit() {
-  const { duedate, priority, description } = getEditedTodoModalData();
+  const { duedateReversed, priority, description } = getEditedTodoModalData();
   const rightContainer = document.querySelector(".right-container");
   const title = document.querySelector(".title-expanded").textContent;
   const expandedTodo = createExpandedTodoContainer(
     title,
-    duedate,
+    duedateReversed,
     priority,
     description
   );
@@ -306,15 +306,16 @@ function expandTodoAfterEdit() {
 function populateTodoModalEdit() {
   const name = document.querySelector(".title-expanded").textContent;
   const [duedate, priority, description] = getTodoInfo(name);
+  const formatedDuedate = reverseDate(duedate);
   const modalDuedate = document.getElementById("duedate-form-edited");
   const modalPriority = document.getElementById("priority-form-edited");
   const modalDescription = document.getElementById("description-edited");
-  modalDuedate.value = duedate;
+  modalDuedate.value = formatedDuedate;
   modalPriority.value = priority;
   modalDescription.value = description;
 }
 
-function refreshTodoListeners() {
+function refreshTodoDelete() {
   const deleteTodoButtons = document.querySelectorAll(".todo-delete");
   deleteTodoButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -323,9 +324,12 @@ function refreshTodoListeners() {
       refreshTodoListeners();
     });
   });
+}
+
+function refreshTodoExpandEdit() {
   const todoModalEdit = document.querySelector(".todo-modal-edit");
-  const submitTodoButton = document.querySelector(".update-button-todo");
-  const closeModalButton = document.querySelector(".close-todo-modal-edit");
+  const submitEditedTodoButton = document.querySelector(".update-button-todo");
+  const closeEditedTodoModal = document.querySelector(".close-todo-modal-edit");
   const expandButtons = document.querySelectorAll(".expand");
   expandButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -337,14 +341,17 @@ function refreshTodoListeners() {
       });
     });
   });
-  submitTodoButton.addEventListener("click", () => {
+  submitEditedTodoButton.addEventListener("click", () => {
     updateTodoStorage();
     expandTodoAfterEdit();
     refreshTodoListeners();
   });
-  closeModalButton.addEventListener("click", () => {
+  closeEditedTodoModal.addEventListener("click", () => {
     todoModalEdit.close();
   });
+}
+
+function refreshTodoComplete() {
   const markCompleteButtons = document.querySelectorAll(".mark-complete");
   markCompleteButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -353,6 +360,12 @@ function refreshTodoListeners() {
       refreshTodoListeners();
     });
   });
+}
+
+function refreshTodoListeners() {
+  refreshTodoDelete();
+  refreshTodoExpandEdit();
+  refreshTodoComplete();
 }
 
 function refreshProjectListeners() {
@@ -375,12 +388,13 @@ function refreshProjectListeners() {
         removeProjectFromStorage(e);
         displayLocalStorageProjects();
         if (e.target.previousElementSibling.classList.contains("selected")) {
+          /* If the project being deleted is currently selected then go back to the default project, else stay on the selected project */
           setTodayAsDefaultStorage();
           setTodayAsDefaultDOM();
-          displayTodos();
-          refreshProjectListeners();
-          refreshTodoListeners();
         }
+        displayTodos();
+        refreshProjectListeners();
+        refreshTodoListeners();
       });
     });
   }

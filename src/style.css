@@ -158,7 +158,10 @@ h2 {
   padding-left: 0.5rem;
 }
 
-.project-title,
+.project-title {
+  cursor: pointer;
+}
+
 .todo,
 .add-project,
 .add-todo,
@@ -168,10 +171,6 @@ h2 {
 .delete-project {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-}
-
-.project-title:hover {
-  transform: scale(1.05) translate(5%, -5%);
 }
 
 .todo:hover,

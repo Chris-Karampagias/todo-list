@@ -6,6 +6,8 @@ import {
   getEditedTodoModalData,
 } from "./modal-data";
 
+/* Project data manipulation */
+
 function addProjectToStorage() {
   const projectName = getProjectModalName();
   if (projectName == "Empty") return;
@@ -65,13 +67,15 @@ function removeProjectFromStorage(e) {
   localStorage.setItem("array", stringified);
 }
 
+/* Modal data manipulation */
+
 function Todo(title, duedate, priority, description) {
   return { title, duedate, priority, description, completed: false };
 }
 
 function createTodo() {
-  const { title, duedate, priority, description } = getTodoModalData();
-  const todoObj = Todo(title, duedate, priority, description);
+  const { title, duedateReversed, priority, description } = getTodoModalData();
+  const todoObj = Todo(title, duedateReversed, priority, description);
   return todoObj;
 }
 
@@ -158,14 +162,14 @@ function getTodoInfo(name) {
 
 function updateTodoStorage() {
   const title = document.querySelector(".title-expanded").textContent;
-  const { duedate, priority, description } = getEditedTodoModalData();
+  const { duedateReversed, priority, description } = getEditedTodoModalData();
   const array = JSON.parse(localStorage.getItem("array"));
   for (let i = 0; i < array.length; i++) {
     if (array[i].selected == true && array[i].todos.length != 0) {
       const todosList = array[i].todos;
       for (let j = 0; j < todosList.length; j++) {
         if (todosList[j].title == title) {
-          todosList[j].duedate = duedate;
+          todosList[j].duedate = duedateReversed;
           todosList[j].priority = priority;
           todosList[j].description = description;
           break;

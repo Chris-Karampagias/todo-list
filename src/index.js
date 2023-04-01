@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 import {
-  addProjectToStorage,
   addTodoStorage,
+  addProjectToStorage,
   setTodayAsDefaultStorage,
 } from "./data-manipulation";
 import {
@@ -12,6 +12,8 @@ import {
   setTodayAsDefaultDOM,
   displayTodos,
 } from "./dom-manipulation";
+
+import "./style.css";
 
 setTodayAsDefaultStorage();
 displayLocalStorageProjects();
@@ -42,6 +44,7 @@ submitProjectButton.addEventListener("click", () => {
 
 const todoModal = document.querySelector(".todo-modal");
 const submitTodoButton = document.querySelector(".submit-button-todo");
+const closeTodoModal = document.querySelector(".close-todo-modal");
 const addTodoButton = document.querySelector(".add-todo");
 
 addTodoButton.addEventListener("click", () => {
@@ -53,4 +56,8 @@ submitTodoButton.addEventListener("click", () => {
   displayTodos();
   refreshProjectListeners();
   refreshTodoListeners();
+});
+
+closeTodoModal.addEventListener("click", () => {
+  todoModal.close();
 });
