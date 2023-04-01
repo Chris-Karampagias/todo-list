@@ -15,6 +15,22 @@ import {
 
 import "./style.css";
 
+function addProjectManually(name) {
+  const projectName = name;
+  const array = JSON.parse(localStorage.getItem("array"));
+  const obj = { projectName, selected: false, todos: [] };
+  array.push(obj);
+  const stringified = JSON.stringify(array);
+  localStorage.setItem("array", stringified);
+}
+
+if (localStorage.length == 0) {
+  localStorage.setItem("array", "[]");
+  addProjectManually("Today");
+  addProjectManually("Upcoming");
+  addProjectManually("Anytime");
+}
+
 setTodayAsDefaultStorage();
 displayLocalStorageProjects();
 displayAddButtons();
