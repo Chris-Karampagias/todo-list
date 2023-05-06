@@ -75,12 +75,23 @@ function Todo(title, duedate, priority, description) {
 
 function createTodo() {
   const { title, duedateReversed, priority, description } = getTodoModalData();
+  if (
+    title == "" ||
+    duedateReversed == "" ||
+    priority == "" ||
+    description == ""
+  ) {
+    return "Empty";
+  }
   const todoObj = Todo(title, duedateReversed, priority, description);
   return todoObj;
 }
 
 function addTodoStorage() {
   const todo = createTodo();
+  if (todo == "Empty") {
+    return;
+  }
   const array = JSON.parse(localStorage.getItem("array"));
   for (let i = 0; i < array.length; i++) {
     if (array[i].selected == true) {

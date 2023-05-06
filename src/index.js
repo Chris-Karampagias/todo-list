@@ -13,6 +13,8 @@ import {
   displayTodos,
 } from "./dom-manipulation";
 
+import { resetProjectInput, resetTodoInputs } from "./modal-data";
+
 import "./style.css";
 
 function addProjectManually(name) {
@@ -50,12 +52,14 @@ addProjectButton.addEventListener("click", () => {
 
 closeProjectModal.addEventListener("click", () => {
   projectModal.close();
+  resetProjectInput();
 });
 
 submitProjectButton.addEventListener("click", () => {
   addProjectToStorage();
   displayLocalStorageProjects();
   refreshProjectListeners();
+  resetProjectInput();
 });
 
 const todoModal = document.querySelector(".todo-modal");
@@ -72,8 +76,10 @@ submitTodoButton.addEventListener("click", () => {
   displayTodos();
   refreshProjectListeners();
   refreshTodoListeners();
+  resetTodoInputs();
 });
 
 closeTodoModal.addEventListener("click", () => {
   todoModal.close();
+  resetTodoInputs();
 });
